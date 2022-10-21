@@ -16,3 +16,5 @@ app.use('/:userId/history', mustLogin, isUserExist, historyRouter);
 app.listen(port, '127.0.0.1', ()=>{
   console.log(`Connected to ${port}`);
 })
+
+module.exports = app;
