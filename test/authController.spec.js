@@ -14,8 +14,11 @@ describe('base.register function', ()=>{
   jest.setTimeout(30000);
   // case success
   it('res.json return summary of {status, message, data', async () => {
+
+    // generate new username with random number
     const ranNum = Math.floor(Math.random() * (10000 - 1) + 1); 
     const username = `new_username${ranNum}`
+    
     const req = mockRequest({username , password: "password_123"});
     const res = mockResponse();
     const data = await base.register(req, res);
