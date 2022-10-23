@@ -69,18 +69,36 @@ module.exports = {
     const {username, password} = req.body;
     const {userId} = req.params;
     const encryptedPassword = await bcrypt.hash(password, SaltRounds);
+    const user = await user_game.findOne({
+      where: {id: userId}
+    });
+    if(!user){
+      return res.status(404).json({
+        status: 'failed',
+        message: 'data not found',
+      })
+    }
     await user_game.update({
       username,
       password: encryptedPassword
     }, {
       where: {id: userId}
     })
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       message: 'success to edit data user',
     })
   }, deleteDataUser: async(req, res) => {
     const {userId} = req.params;
+    const user = await user_game.findOne({
+      where: {id: userId}
+    });
+    if(!user){
+      return res.status(404).json({
+        status: 'failed',
+        message: 'data not found',
+      })
+    }
     await user_game.destroy({
       where: {id: userId}
     });

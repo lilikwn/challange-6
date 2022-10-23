@@ -31,7 +31,7 @@ module.exports = {
         user_id: userId,
         score, is_win, match_type, duration
       });
-      return res.status(200).json({
+      return res.status(201).json({
         status: 'success',
         message: 'success to create user game history',
         data: history,
@@ -47,6 +47,12 @@ module.exports = {
       const history = await History.findOne({
         where: {id: historyId}
       });
+      if(!history){
+        return res.status(404).json({
+          status: 'failed',
+          message: 'match is not found'
+        })
+      }
       if(history.user_id != userId){
         return res.status(400).json({
           status: 'Failed',
@@ -62,7 +68,7 @@ module.exports = {
         data: history
       })
     } catch (error) {
-      console.error(error.message)
+      console.log(error.message)
     }
   },
   deleteGameHistory: async (req, res) => {

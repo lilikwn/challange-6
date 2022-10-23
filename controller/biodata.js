@@ -8,7 +8,7 @@ module.exports = {
     });
     return res.status(200).json({
       status: 'success',
-      message: 'success get biodata user',
+      message: 'success to get biodata user',
       data: biodata
     });
   },
@@ -16,12 +16,13 @@ module.exports = {
     try {
       const {userId} = req.params;
       const {avatar, nickname, rank, level} = req.body;
+
       // Create new data
       const biodata = await user_game_biodata.create({
         user_id: +userId,
         avatar, nickname, rank, level
       });
-      return res.status(200).json({
+      return res.status(201).json({
         status: 'success',
         message: 'success to add biodata',
         data: biodata
